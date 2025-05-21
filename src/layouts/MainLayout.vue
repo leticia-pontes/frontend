@@ -69,6 +69,7 @@ export default {
 
     openLogin() {
       this.$refs.login.openModal();
+
     },
   },
 
