@@ -1,0 +1,189 @@
+/* app global css */
+header{
+    background-color: aqua;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.login-page,
+.register-page,
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
+.profile-card {
+  width: 100%;
+  height: 100vh;
+  box-shadow: none;
+  border: none;
+}
+
+.login-card,
+.register-card{
+  max-width: 500px;
+  width: 100%;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+
+.profile-card {
+  width: 100%;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+
+
+.login-card-section,
+.register-card-section,
+.profile-card-section {
+  text-align: center;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 64px;
+}
+
+.login-title,
+.register-title,
+.profile-title {
+  color: #212121;
+  font-size: 42px;
+  font-weight: 300;
+  margin-bottom: 50px;
+}
+
+.login-form,
+.register-form,
+.profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.login-input-group,
+.register-input-group {
+  display: grid;
+  gap: 18px;
+}
+
+.profile-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.login-input,
+.login-submit-btn,
+.register-input,
+.register-submit-btn,
+.custom-select,
+.profile-input,
+.profile-social-input,
+.profile-submit-btn {
+  border-radius: 10px;
+  height: 45px;
+  border-style: none;
+}
+
+.login-input,
+.register-input,
+.profile-input,
+.profile-social-input,
+.custom-select {
+  padding-left: 22px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile-input{
+    width: 500px;
+}
+
+.custom-select {
+  border-style: none;
+  font-size: 16px;
+  color: #212121;
+}
+
+.login-input::placeholder,
+.register-input::placeholder,
+.profile-input::placeholder,
+.profile-social-input::placeholder {
+  font-size: 16px;
+  color: #212121;
+}
+
+.login-submit-btn,
+.register-submit-btn,
+.profile-submit-btn {
+  max-width: 500px;
+  width: 100%;
+  margin-top: 26px;
+  background-color: #0056b3;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.auth-options-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-text {
+  color: #212121;
+  font-weight: 400;
+}
+
+.password-btn,
+.register-btn {
+  text-transform: none;
+  font-weight: 400;
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.password-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-group .register-input {
+  width: 100%;
+}
+
+
