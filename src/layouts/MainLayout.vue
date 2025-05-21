@@ -1,73 +1,81 @@
 <template>
-    <div class="q-pa-sm q-gutter-y-sm">
-      <q-layout>
-          <q-header>
-            <q-toolbar class="header">
-              <q-item clickable>
-                <img src="../assets/testing-logo.png" style="width:100px;"/>
-              </q-item>
-            <q-space/>
+  <div class="q-pa-sm q-gutter-y-sm">
+    <q-layout>
+      <q-header class="header">
+        <q-toolbar>
+          <q-item clickable>
+            <img src="../assets/testing-logo.png" style="width: 100px" />
+          </q-item>
+          <q-space />
 
-            <q-tabs v-model="tab" shrink>
-              <q-tab name="tab1" label="Contratar" class="text-indigo-4"/>
-              <q-tab name="tab2" label="Trabalhar" class="text-indigo-4"/>
-            </q-tabs>
+          <q-tabs shrink class="tabs-container">
+            <q-route-tab
+              to="/como-funciona"
+              label="Como funciona?"
+              class="no-uppercase"
+            />
+            <q-route-tab
+              to="/exemplos"
+              label="Nossos exemplos"
+              class="no-uppercase"
+            />
+          </q-tabs>
 
-            <q-space/>
+          <q-space />
 
-            <q-btn rounded flat color="indigo-4" label="Faça login" @click="openLogin()"/>
-            <q-btn rounded color="indigo-4" label="Cadastre-se"/>
+          <q-btn flat label="Faça login" class="btn-login" to="/login"/>
+          <q-btn label="Cadastre-se" class="btn-register" to="/cadastro" />
+        </q-toolbar>
 
-          </q-toolbar>
+        <Login ref="login" />
+      </q-header>
 
-          <Login ref="login"/>
-        </q-header>
-
-
-        <q-page-container>
-          <router-view />
-        </q-page-container>  
-          
-
-      </q-layout>
-
- 
-    </div>
+      <q-page-container>
+        <router-view />
+      </q-page-container>
+    </q-layout>
+  </div>
 </template>
 
+<style scoped>
+@import "../css/header.css";
+</style>
+
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-import Login from 'src/components/Login.vue'
+import EssentialLink from "components/EssentialLink.vue";
+import Login from "src/components/Login.vue";
 
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
 
-  data () {
+  data() {
     return {
-      tab: '',
+      tab: "",
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'Docs',
-          caption: 'quasar.dev',
-          icon: 'person'
-        }
-      ]
-    }
+          title: "Docs",
+          caption: "quasar.dev",
+          icon: "person",
+        },
+      ],
+    };
   },
 
   methods: {
-    toggleLeftDrawer () {
-      this.leftDrawerOpen = !this.leftDrawerOpen
+    toggleLeftDrawer() {
+      this.leftDrawerOpen = !this.leftDrawerOpen;
     },
 
     openLogin() {
       this.$refs.login.openModal();
-    }
+
+    },
   },
 
   components: {
-    EssentialLink, Login
+    EssentialLink,
+    Login,
   },
-}
+};
 </script>

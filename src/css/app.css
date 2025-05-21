@@ -1,7 +1,4 @@
-/* app global css */
-header{
-    background-color: aqua;
-}
+
 
 * {
   margin: 0;
@@ -134,7 +131,7 @@ body {
   max-width: 500px;
   width: 100%;
   margin-top: 26px;
-  background-color: #0056b3;
+  background-color: #3F560E;
   color: #fff;
   cursor: pointer;
   font-size: 16px;
@@ -163,7 +160,7 @@ body {
 .register-btn {
   text-transform: none;
   font-weight: 400;
-  color: #0056b3;
+  color: #3F560E;
   text-decoration: underline;
 }
 
