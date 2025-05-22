@@ -26,12 +26,18 @@ const routes = [
       },
       {
         path: "/como-funciona",
+        name: "como-funciona",
         component: () => import("pages/ComoFunciona.vue"),
       },
       {
         path: "/exemplos",
         component: () => import("pages/NossosExemplos.vue"),
       },
+      // {
+      //   path: "dashboard",
+      //   name: "dashboard",
+      //   component: () => import("pages/Dashboard.vue"),
+      // },
     ],
   },
   {
