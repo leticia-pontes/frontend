@@ -26,6 +26,7 @@ const routes = [
       },
       {
         path: "/como-funciona",
+        name: "como-funciona",
         component: () => import("pages/ComoFunciona.vue"),
       },
       {

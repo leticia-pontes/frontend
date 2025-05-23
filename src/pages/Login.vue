@@ -1,7 +1,7 @@
 <template>
   <q-page class="login-page">
     <q-card class="login-card">
-      
+
       <q-card-section class="login-card-section">
         <div class="login-title">Entrar</div>
       </q-card-section>
@@ -42,6 +42,39 @@
     </q-card>
   </q-page>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+
+const onSubmit = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/auth/login', {
+      email: email.value,
+      senha: password.value
+    })
+
+    console.log('Login bem-sucedido!', response.data)
+
+    localStorage.setItem('auth_token', response.data.access_token)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
+
+    router.push({ name: 'como-funciona' }) // Para verificar se redireciona
+
+  } catch (error) {
+    if (error.response) {
+      alert('Erro no login: ' + error.response.data.message)
+    } else {
+      alert('Erro no login: ' + error.message)
+    }
+  }
+}
+</script>
 
 <style scoped>
 @import '../css/app.css';
