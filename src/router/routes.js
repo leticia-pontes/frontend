@@ -32,6 +32,11 @@ const routes = [
         path: "/exemplos",
         component: () => import("pages/NossosExemplos.vue"),
       },
+      {
+        path: "/empresa",
+        component: () => import("pages/Dashboard_empresa.vue"),
+        meta: { customHeader: true },
+      },
     ],
   },
   {
