@@ -1,7 +1,8 @@
 <template>
   <div class="q-pa-sm q-gutter-y-sm">
     <q-layout>
-      <q-header class="header">
+      <!-- HEADER PADRÃO -->
+      <q-header class="header" v-if="!isCustomHeader">
         <q-toolbar>
           <q-item clickable>
             <img src="../assets/testing-logo.png" style="width: 100px" />
@@ -23,13 +24,21 @@
 
           <q-space />
 
-          <q-btn flat label="Faça login" class="btn-login" to="/login"/>
+          <q-btn flat label="Faça login" class="btn-login" to="/login" />
           <q-btn label="Cadastre-se" class="btn-register" to="/cadastro" />
         </q-toolbar>
 
         <Login ref="login" />
       </q-header>
 
+      <!-- HEADER ESPECIAL -->
+      <q-header class="header" v-else>
+        <q-toolbar>
+          <q-toolbar-title>Header Especial</q-toolbar-title>
+        </q-toolbar>
+      </q-header>
+
+      <!-- CONTEÚDO PRINCIPAL -->
       <q-page-container>
         <router-view />
       </q-page-container>
@@ -47,6 +56,13 @@ import Login from "src/components/Login.vue";
 
 export default {
   name: "MainLayout",
+
+  computed: {
+    // Verifica se a rota atual tem meta.customHeader === true
+    isCustomHeader() {
+      return this.$route.meta.customHeader === true;
+    },
+  },
 
   data() {
     return {
