@@ -38,6 +38,10 @@ const routes = [
         component: () => import("pages/Dashboard_empresa.vue"),
         meta: { customHeader: true },
       },
+      {
+        path: "/modal-projeto",
+        component: () => import("pages/ModalProjeto.vue"),
+      },
     ],
   },
   {
