@@ -4,6 +4,7 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/Home.vue") },
+      { path: "/home", component: () => import("pages/Home.vue") },
       {
         path: "login",
         name: "login",
@@ -50,10 +51,4 @@ const routes = [
   },
 ];
 
-
 export default routes;
-
-
-
-
-
