@@ -1,7 +1,7 @@
 <template>
   <q-page class="register-page">
     <q-card class="register-card">
-      
+
       <q-card-section class="register-card-section">
         <div class="register-title">Cadastro</div>
       </q-card-section>
@@ -14,6 +14,13 @@
               type="text"
               required
               placeholder="Nome"
+              class="register-input"
+            />
+            <input
+              v-model="cnpj"
+              type="text"
+              required
+              placeholder="CNPJ"
               class="register-input"
             />
            <input
@@ -51,12 +58,10 @@
         </q-form>
       </q-card-section>
 
-   <div class="auth-options-login">
+    <div class="auth-options-login">
             <span class="register-text">Já possui uma conta?&nbsp</span>
             <q-btn flat class="register-btn" label="Faça login" :to="{ name: 'login' }" />
     </div>
-
-
 
     </q-card>
   </q-page>

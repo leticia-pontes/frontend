@@ -43,6 +43,10 @@ const routes = [
         path: "/modal-projeto",
         component: () => import("pages/ModalProjeto.vue"),
       },
+      {
+        path: "/perfil-usuario",
+        component: () => import("pages/PerfilUsuario.vue"),
+      },
     ],
   },
   {

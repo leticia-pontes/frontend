@@ -2,12 +2,12 @@
     <div>
         <q-card class="q-ma-sm">
             <q-toolbar class="bg-indigo-1"/>
-            
+
             <q-card-section>
                 <div class="row items-center">
                     <div>
                         <q-avatar size="200px">
-                            <q-img src="../assets/testingLogo.jpg"/> 
+                            <q-img src="../assets/testingLogo.jpg"/>
                         </q-avatar>
                     </div>
 
@@ -17,9 +17,9 @@
                         </div>
 
                         <div>
-                            Lorem ipsum dolor sit amet. Et autem quasi et modi nihil ut libero galisum sed illum pariatur. Hic neque error eum Quis incidunt aut tempore alias. 
+                            Lorem ipsum dolor sit amet. Et autem quasi et modi nihil ut libero galisum sed illum pariatur. Hic neque error eum Quis incidunt aut tempore alias.
                         </div>
-                        
+
                         <div>
                             Marília - SP, Av.  Avenida Teste nº1234
                         </div>
@@ -38,13 +38,13 @@
                     <q-card-section >
                         <div>
                             <div class="flex flex-center text-bold">A T I V I D A D E S</div>
-                           <q-separator/>                            
-                        </div> 
+                           <q-separator/>
+                        </div>
                     </q-card-section>
-                    
+
                     <q-card-section>
                         <div class="row items-center">
-                            <q-img class="q-ma-md" src="../assets/trofeu.avif" style="height: 50px; width:50px;"/> 
+                            <q-img class="q-ma-md" src="../assets/trofeu.avif" style="height: 50px; width:50px;"/>
                             <div>
                                 <div>Pontuação:</div>
                                 <div class="text-h6">870 PONTOS</div>
@@ -74,7 +74,7 @@
 
                 <div class="col">
                     <q-card-section class="col">
-                        <div>                   
+                        <div>
                             <div class="flex flex-center text-bold">I D E N T I D A D E</div>
                             <q-separator/>
                         </div>
@@ -132,13 +132,13 @@
                         </q-toolbar-title>
 
 
-                       
+
                         <q-input placeholder="Pesquisar Projeto" dense outlined filled label="Pesquisar projeto">
                             <template v-slot:append>
                                 <q-icon name="search"/>
                             </template>
                         </q-input>
-                       
+
                     </q-toolbar>
                 </div>
 
@@ -173,17 +173,17 @@
                         </q-toolbar-title>
 
 
-                       
+
                         <q-input placeholder="Pesquisar Projeto" dense outlined filled label="Pesquisar usuário">
                             <template v-slot:append>
                                 <q-icon name="search"/>
                             </template>
                         </q-input>
-                       
+
                     </q-toolbar>
                 </div>
 
-                <q-card-section>            
+                <q-card-section>
                     <q-virtual-scroll
                             style="height: 200px;"
                             :items="ratingList"
@@ -201,7 +201,7 @@
                                     </q-item-label>
                                 </q-item-section>
                             </q-item>
-                        </q-virtual-scroll>                
+                        </q-virtual-scroll>
                 </q-card-section>
             </q-card>
         </div>
@@ -223,7 +223,7 @@ for (let i = 1; i <= 300; i++){
     ratingList.push({
         label: 'Nome do Usuário Cadastrado'
     })
-} 
+}
 
 
 
