@@ -1,81 +1,92 @@
 <template>
-  <q-page class="login-page">
-    <q-card class="login-card">
-
-      <q-card-section class="login-card-section">
-        <div class="login-title">Entrar</div>
-      </q-card-section>
-
-      <q-card-section class="login-form-section">
-        <q-form @submit="onSubmit" class="login-form">
-          <div class="login-input-group">
-           <input
-              v-model="email"
-              type="email"
-              required
-              placeholder="E-mail"
-              class="login-input"
+    <div class="absolute-center">
+        <div class="text-h4 flex flex-center q-mb-xl" style="width:400px;">Entrar</div>
+        <q-form @submit.prevent="login">
+            <q-input
+                v-model="dados.email"
+                dense
+                outlined
+                class="full-width q-mb-md"
+                hide-bottom-space
+                color="dark"
+                label="E-mail"
+                bg-color="white"
+                :rules="[
+                    val => !!val || 'Informe o seu e-mail',
+                    (val, rules) => rules.email(val) || 'E-mail inválido'
+                ]"
             />
-            <input
-              v-model="password"
-              type="password"
-              required
-              placeholder="Senha"
-              class="login-input"
-            />
-          </div>
-          <button type="submit" class="login-submit-btn">Entrar</button>
+
+            <q-input
+                v-model="dados.senha"
+                dense
+                outlined
+                hide-bottom-space
+                label="Senha"
+                color="dark"
+                class="q-mb-md"
+                bg-color="white"
+                :type="showPassword ? 'text' : 'password'"
+                :rules="[
+                    val => !!val || 'Informe a sua senha'
+                ]"
+            >
+                <template v-slot:append>
+                    <q-icon
+                        :name="showPassword ? 'visibility_off' : 'visibility'"
+                        class="cursor-pointer"
+                        @click="showPassword = !showPassword"
+                    >
+                        <q-tooltip class="text-caption">{{ showPassword ? 'Ocultar' : 'Mostrar' }}</q-tooltip>
+                    </q-icon>
+                </template>
+            </q-input>
+
+            <q-btn type="submit" no-caps label="Entrar" class="full-width" color="light-green-10"/>
         </q-form>
-      </q-card-section>
-
-   <div class="auth-options">
-        <q-btn flat class="password-btn" label="Esqueci a senha" />
-
-        <div class="register-container">
-            <span class="register-text">Não tem uma conta ainda? </span>
-            <q-btn flat class="register-btn" label="Cadastre-se" :to="{ name: 'cadastro' }" />
+        <div class="row q-mt-sm items-center">
+            <a href="" class="col text-light-green-10" >Esqueci a senha</a>
+            <div class="row items-center">
+                <div>Não tem uma conta ainda?</div>
+                <a href="/cadastro" class="col text-light-green-10 q-ml-sm">Cadastre-se</a>
+            </div>
         </div>
     </div>
-
-
-
-    </q-card>
-  </q-page>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
+<script>
+export default{
+    data () {
+        return {
+            showPassword: false,
 
-const email = ref('')
-const password = ref('')
-const router = useRouter()
+            dados: {
+                email: null,
+                senha: null,
+            },
+        }
+    },
 
-const onSubmit = async () => {
-  try {
-    const response = await axios.post('http://localhost:8000/api/auth/login', {
-      email: email.value,
-      senha: password.value
-    })
+    methods: {
+        login() {
+            this.$q.loading.show();
 
-    console.log('Login bem-sucedido!', response.data)
-
-    localStorage.setItem('auth_token', response.data.access_token)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
-
-    router.push({ name: 'como-funciona' }) // Para verificar se redireciona
-
-  } catch (error) {
-    if (error.response) {
-      alert('Erro no login: ' + error.response.data.message)
-    } else {
-      alert('Erro no login: ' + error.message)
-    }
-  }
+            this.$api.post("/login", this.dados).then(res => {
+                this.$q.notify({
+                    type: "positive",
+                    message: "Login realizado"
+                });
+                this.$router.push('/desenvolvedor-profile');
+            }).catch(() => {
+                this.$q.notify({
+                    type: "negative",
+                    message: "Usuário ou senha incorretos",
+                });
+            })
+            .finally(() => this.$q.loading.hide());
+        },
+    },
 }
 </script>
 
-<style scoped>
-@import '../css/app.css';
-</style>
+

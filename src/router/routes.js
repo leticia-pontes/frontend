@@ -1,54 +1,32 @@
 const routes = [
   {
-    path: "/",
-    component: () => import("layouts/MainLayout.vue"),
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: "", component: () => import("pages/Home.vue") },
-      { path: "/home", component: () => import("pages/Home.vue") },
-      {
-        path: "login",
-        name: "login",
-        component: () => import("pages/Login.vue"),
-      },
-      {
-        path: "cadastro",
-        name: "cadastro",
-        component: () => import("pages/Cadastro.vue"),
-      },
-      {
-        path: "profile",
-        name: "profile",
-        component: () => import("pages/Profile.vue"),
-      },
-      {
-        path: "teste",
-        name: "teste",
-        component: () => import("pages/Profile.vue"),
-      },
-      {
-        path: "/como-funciona",
-        name: "como-funciona",
-        component: () => import("pages/ComoFunciona.vue"),
-      },
-      {
-        path: "/exemplos",
-        component: () => import("pages/NossosExemplos.vue"),
-      },
-      {
-        path: "/empresa",
-        component: () => import("pages/Dashboard_empresa.vue"),
-        meta: { customHeader: true },
-      },
-      {
-        path: "/modal-projeto",
-        component: () => import("pages/ModalProjeto.vue"),
-      },
-    ],
-  },
-  {
-    path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue"),
-  },
-];
+      { path: '/', component: () => import('pages/Home.vue') },
 
-export default routes;
+      { path: 'login', component: () => import('pages/Login.vue') },
+
+      { path: 'cadastro', component: () => import('pages/Cadastro.vue') },
+
+      { path: 'planos', component: () => import('pages/Planos.vue') },
+
+      { path: 'empresa-profile', component: () => import('pages/PerfilEmpresa.vue') },
+
+      {path: 'desenvolvedor-profile', component: () => import('pages/PerfilDesenvolvedor.vue') },
+
+      {path: 'pedidos-solicitacoes', component: () => import('pages/PedidosSolicitacoes.vue') },
+
+      {path: 'complete-perfil', component: () => import ('pages/CompletePerfil.vue')}
+    ]
+  },
+
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: '/:catchAll(.*)*',
+    component: () => import('pages/ErrorNotFound.vue')
+  }
+]
+
+export default routes
