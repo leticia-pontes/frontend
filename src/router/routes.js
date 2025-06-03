@@ -59,6 +59,10 @@ const routes = [
         path: 'pedidos-solicitacoes',
         component: () => import('pages/PedidosSolicitacoes.vue')
       },
+      {
+        path: "/planos",
+        component: () => import("pages/Planos.vue"),
+      },
     ],
   },
   {
