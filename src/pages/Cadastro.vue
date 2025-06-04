@@ -23,11 +23,7 @@
               placeholder="CNPJ"
               class="register-input"
             />
-<<<<<<< Updated upstream
-           <input
-=======
             <input
->>>>>>> Stashed changes
               v-model="email"
               type="email"
               required
@@ -62,28 +58,23 @@
               placeholder="Endereço"
               class="register-input"
             />
+            <!--
             <select v-model="perfil" class="custom-select" required>
               <option value="" disabled selected>Selecione seu perfil</option>
               <option value="Contratante">Empresa Contratante</option>
               <option value="Desenvolvedor">Desenvolvedor</option>
             </select>
+            -->
           </div>
 
           <button type="submit" class="register-submit-btn">Cadastrar-se</button>
         </q-form>
       </q-card-section>
 
-<<<<<<< Updated upstream
-    <div class="auth-options-login">
-            <span class="register-text">Já possui uma conta?&nbsp</span>
-            <q-btn flat class="register-btn" label="Faça login" :to="{ name: 'login' }" />
-    </div>
-=======
       <div class="auth-options-login">
         <span class="register-text">Já possui uma conta?&nbsp</span>
         <q-btn flat class="register-btn" label="Faça login" :to="{ name: 'login' }" />
       </div>
->>>>>>> Stashed changes
 
     </q-card>
   </q-page>
@@ -101,17 +92,33 @@ const telefone = ref('')
 const endereco = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const perfil = ref('') // Deve ser 'Contratante' ou 'Desenvolvedor'
+
 const router = useRouter()
 
 const onSubmit = async () => {
-  if (password.value !== confirmPassword.value) {
-    alert('As senhas não coincidem!')
+
+  if (!nome.value.trim()) {
+    alert('O campo Nome é obrigatório.')
     return
   }
-
-  if (!perfil.value) {
-    alert('Por favor, selecione um perfil.')
+  if (!cnpj.value.trim()) {
+    alert('O campo CNPJ é obrigatório.')
+    return
+  }
+  if (!email.value.trim()) {
+    alert('O campo E-mail é obrigatório.')
+    return
+  }
+  if (!password.value) {
+    alert('O campo Senha é obrigatório.')
+    return
+  }
+  if (!confirmPassword.value) {
+    alert('Por favor, confirme a senha.')
+    return
+  }
+  if (password.value !== confirmPassword.value) {
+    alert('As senhas não coincidem!')
     return
   }
 
@@ -122,14 +129,15 @@ const onSubmit = async () => {
       email: email.value,
       senha: password.value,
       telefone: telefone.value || null,
-      endereco: endereco.value || null,
-      perfil: perfil.value
+      endereco: endereco.value || null
     })
 
-    localStorage.setItem('tipoPerfil', perfil.value)
+    // Guarda o id da empresa para passar para a próxima página
+    localStorage.setItem('id_empresa', response.data.id_empresa)
 
-    alert('Cadastro realizado com sucesso!')
+    // alert('Cadastro realizado com sucesso!')
 
+    // Redirecionar para a próxima página (personalização de perfil)
     router.push({ name: 'profile' })
 
   } catch (error) {
