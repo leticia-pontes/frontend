@@ -6,7 +6,7 @@
 }
 
 .modal-title {
-  font-size: 42px;
+  font-size: 35px;
   font-weight: 300;
   margin-bottom: 20px;
 }
@@ -126,6 +126,19 @@
   border-color: #b60b0b;
   color: #b60b0b;
 }
+.status-pendente {
+  border-color: #f0ad4e;
+  color: #f0ad4e;
+}
+.status-aceito {
+  border-color: #5bc0de;
+  color: #5bc0de;
+}
+.status-aguardando {
+  border-color: #f7a072;
+  color: #f7a072;
+}
+
 
 .progress-bar {
   width: 100%;
@@ -167,18 +180,13 @@
   margin-bottom: 30px;
 }
 
-.card-photo {
+.card-name {
   display: flex;
   gap: 8px;
   align-items: center;
   font-weight: 500;
   font-size: 16px;
   margin-bottom: 10px;
-}
-
-.card-photo img {
-  width: 45px;
-  height: 45px;
 }
 
 .modal-proposta .description {
