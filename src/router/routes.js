@@ -26,53 +26,64 @@ const routes = [
         component: () => import("pages/Profile.vue"),
       },
       {
-        path: "/como-funciona",
+        path: "como-funciona",
         name: "como-funciona",
         component: () => import("pages/ComoFunciona.vue"),
       },
       {
-        path: "/exemplos",
+        path: "exemplos",
+        name: "exemplos",
         component: () => import("pages/NossosExemplos.vue"),
       },
       {
-        path: "/empresa",
+        path: "empresa",
+        name: "empresa",
         component: () => import("pages/Dashboard_empresa.vue"),
         meta: { customHeader: true },
       },
       {
-        path: "/modal-projeto",
+        path: "modal-projeto",
+        name: "modal-projeto",
         component: () => import("pages/ModalProjeto.vue"),
       },
       {
-        path: "/perfil-usuario",
+        path: "perfil-usuario",
+        name: "perfil-usuario",
         component: () => import("pages/PerfilUsuario.vue"),
       },
       {
         path: 'empresa-profile',
+        name: 'empresa-profile',
         component: () => import('pages/PerfilEmpresa.vue')
       },
       {
         path: 'desenvolvedor-profile',
+        name: 'desenvolvedor-profile',
         component: () => import('pages/PerfilDesenvolvedor.vue')
       },
       {
         path: 'pedidos-solicitacoes',
+        name: 'pedidos-solicitacoes',
         component: () => import('pages/PedidosSolicitacoes.vue')
       },
       {
-        path: "/planos",
+        path: "planos",
+        name: "planos",
         component: () => import("pages/Planos.vue"),
       },
       {
         path: 'empresa-profile',
+        name: 'empresa-profile',
         component: () => import('pages/PerfilEmpresa.vue')
       },
       {
         path: 'desenvolvedor-profile',
+        name: 'desenvolvedor-profile',
         component: () => import('pages/PerfilDesenvolvedor.vue')
       },
       {
         path: 'pedidos-solicitacoes',
+        name: 'pedidos-solicitacoes',
         component: () => import('pages/PedidosSolicitacoes.vue')
       },
     ],
