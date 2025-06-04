@@ -48,29 +48,42 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
+const nome = ref('')
+const cnpj = ref('')
 const email = ref('')
 const password = ref('')
+const passwordConfirm = ref('')
+const telefone = ref('')
+const endereco = ref('')
+const nivel = ref(0)
+const pontos = ref(0)
 const router = useRouter()
 
 const onSubmit = async () => {
+  if (password.value !== passwordConfirm.value) {
+    alert('As senhas não conferem')
+    return
+  }
+
   try {
-    const response = await axios.post('http://localhost:8000/api/auth/login', {
+    const response = await axios.post('http://localhost:8000/api/empresas/', {
+      nome: nome.value,
+      cnpj: cnpj.value,
       email: email.value,
-      senha: password.value
+      senha: password.value,
+      telefone: telefone.value || null,
+      endereco: endereco.value || null,
+      nivel: nivel.value,
+      pontos: pontos.value,
     })
 
-    console.log('Login bem-sucedido!', response.data)
-
-    localStorage.setItem('auth_token', response.data.access_token)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
-
-    router.push({ name: 'como-funciona' }) // Para verificar se redireciona
-
+    alert('Empresa cadastrada com sucesso!')
+    router.push({ name: 'como-funciona' })
   } catch (error) {
     if (error.response) {
-      alert('Erro no login: ' + error.response.data.message)
+      alert('Erro ao cadastrar: ' + error.response.data.message)
     } else {
-      alert('Erro no login: ' + error.message)
+      alert('Erro ao cadastrar: ' + error.message)
     }
   }
 }

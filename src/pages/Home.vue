@@ -1,4 +1,16 @@
 <template>
+  <!-- <div class="q-pa-sm q-gutter-y-sm">
+    <q-layout>
+      <q-header class="header">
+        <Login ref="login" />
+      </q-header>
+
+      <q-page-container>
+        <router-view />
+      </q-page-container>
+
+    </q-layout>
+  </div> -->
     <!-- <div class="row q-pa-md items-center q-gutter-md">
       <q-tabs class="flex flex-center" v-model="tab">
         <q-tab name="funciona" label="Como funciona?" no-caps/>
@@ -80,7 +92,6 @@
       </div>
     </div>-->
     <div></div>
-
 
 </template>
 
