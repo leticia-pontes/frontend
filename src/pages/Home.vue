@@ -1,15 +1,4 @@
 <template>
-  <!-- <div class="row q-pa-md items-center q-gutter-md">
-      <q-tabs class="flex flex-center" v-model="tab">
-        <q-tab name="funciona" label="Como funciona?" no-caps/>
-        <q-tab name="exemplos" label="Nossos exemplos" no-caps/>
-      </q-tabs>
-      <q-space/>
-      <div class="text-light-green-10 text-h6">Já possui uma conta?</div>
-      <q-btn no-caps color="light-green-10" label="Faça o login" push @click="$router.push('/login')"/>
-    </div> -->
-
-
   <div class="row q-pa-xl flex flex-center">
     <div class="col">
       <div class="row ">
@@ -110,7 +99,7 @@ export default {
   data() {
     return {
       tab: 'funciona',
-      projetos: [], // para armazenar os projetos da API
+      projetos: [], 
       carregando: false,
       erro: null,
     }

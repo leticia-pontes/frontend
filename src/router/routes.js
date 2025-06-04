@@ -44,8 +44,36 @@ const routes = [
         component: () => import("pages/ModalProjeto.vue"),
       },
       {
+        path: "/perfil-usuario",
+        component: () => import("pages/PerfilUsuario.vue"),
+      },
+      {
+        path: 'empresa-profile',
+        component: () => import('pages/PerfilEmpresa.vue')
+      },
+      {
+        path: 'desenvolvedor-profile',
+        component: () => import('pages/PerfilDesenvolvedor.vue')
+      },
+      {
+        path: 'pedidos-solicitacoes',
+        component: () => import('pages/PedidosSolicitacoes.vue')
+      },
+      {
         path: "/planos",
         component: () => import("pages/Planos.vue"),
+      },
+      {
+        path: 'empresa-profile',
+        component: () => import('pages/PerfilEmpresa.vue')
+      },
+      {
+        path: 'desenvolvedor-profile',
+        component: () => import('pages/PerfilDesenvolvedor.vue')
+      },
+      {
+        path: 'pedidos-solicitacoes',
+        component: () => import('pages/PedidosSolicitacoes.vue')
       },
     ],
   },

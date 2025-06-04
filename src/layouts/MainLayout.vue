@@ -4,9 +4,6 @@
       <!-- HEADER PADRÃO -->
       <q-header class="header" v-if="!isCustomHeader">
         <q-toolbar>
-          <q-item clickable>
-            <img src="../assets/testing-logo.png" style="width: 100px" />
-          </q-item>
           <q-space />
 
           <q-tabs shrink class="tabs-container">
@@ -44,7 +41,7 @@
       <q-page-container>
         <router-view />
       </q-page-container>
-      
+
       <q-footer>
         <p>Fábrica de Projetos Ágeis - Ciência da Computação 2025</p>
       </q-footer>
