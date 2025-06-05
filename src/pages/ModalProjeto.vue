@@ -236,7 +236,19 @@ import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import { Notify } from 'quasar'
 
-const token = '2|irNE1Htf5HrY27yLcmWYhhiwMUz1r6GCpaZheu4Zc6cc7251' // alterar depois
+// Recupera o token salvo após o login
+const token = localStorage.getItem('auth_token')
+
+// Verificação de autenticação
+if (!token) {
+  Notify.create({
+    type: 'negative',
+    message: 'Usuário não autenticado. Por favor, faça login novamente.',
+    position: 'top'
+  })
+  // Aqui você pode redirecionar para a tela de login, se necessário
+  // window.location.href = '/login'
+}
 
 const pedidos = ref([])
 const proposta = ref(false)
@@ -270,16 +282,21 @@ async function mostrarInteresse() {
   if (!propostaSelecionada.value) return
 
   try {
-    const response = await axios.put(`http://localhost:8000/api/pedidos/${propostaSelecionada.value.id_pedido}`, {
-      id_empresa_desenvolvedora: 4 // SUBSTITUIR PELO DESENVOLVEDOR QUE ESTA LOGADO
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const response = await axios.put(
+      `http://localhost:8000/api/pedidos/${propostaSelecionada.value.id_pedido}`,
+      {
+        id_empresa_desenvolvedora: 4 // ALTERAR: pegar do usuário autenticado
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
 
     console.log('Atualizado com sucesso:', response.data)
-    propostaSelecionada.value.id_empresa_desenvolvedora = 4 // SUBSTITUIR PELO DESENVOLVEDOR QUE ESTA LOGADO
+    propostaSelecionada.value.id_empresa_desenvolvedora = 4
+
     Notify.create({
       type: 'positive',
       message: 'Interesse registrado com sucesso!',
@@ -308,11 +325,17 @@ onMounted(async () => {
     pedidos.value = response.data.data
   } catch (error) {
     console.error('Erro ao buscar pedidos:', error)
+    Notify.create({
+      type: 'negative',
+      message: 'Erro ao buscar os dados.',
+      position: 'top',
+      timeout: 4000
+    })
   }
 })
 
 const statusInfo = computed(() => {
-  const status = projetoSelecionado.value.current_status?.status || ''
+  const status = projetoSelecionado.value?.current_status?.status || ''
 
   const mapStatus = {
     'Pendente': { class: 'status-pendente', label: 'PENDENTE' },
@@ -325,26 +348,6 @@ const statusInfo = computed(() => {
 
   return mapStatus[status] || { class: '', label: 'STATUS DESCONHECIDO' }
 })
-
-// const itens =
-//               [
-//                 'Realizar a tela de login but also the leap into elect the industrys standard dummy text ever since the 1500s, when an unknown',
-//                 'Unchanged not a at standard dummy',
-//                 'Realizar industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make and type specimen book. It has survived not only five centuries',
-//                 'Rsemper nisi, et ornare sapien nisl vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien placerat tempor',
-//                 'Etiam justo risus, blandit nec placerat eu, dapibus sed metus. Not a at standard dummy',
-//                 'Survived not only five centuries',
-//                 'Phasellus rhoncus lorem non elementum vulputate.',
-//                 'Urabitur aliquet, velit non placerat aliquam, odio ipsum pretium nibh, ut malesuada diam justo ut tellus. Maecenas facilisis sodales velit non molestie.',
-//                 'Condimentum blandit iaculis. Vestibulum vehicula cursus dignissim. In quis mattis enim. Curabitur sed enim venenatis, pharetra mi vel, convallis felis.',
-//                 'Tiam faucibus, nisl ac feugiat aliquet, magna nulla congue urna, eu porta mi magna eu elit. Cras fermentum tempor malesuada.',
-//                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies leo id urna imperdiet suscipit. Nulla sed facilisis est. Suspendisse tempor aliquam eros in imperdiet. Metus tortor semper nisi, et ornare sapien nisl vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit ex sed sapien placerat tempor',
-//                 'Nunc a ornare magna. Maecenas aliquet, eros ut vulputate ultrices.',
-//                 'Duis quis odio ac leo porta dapibus. Integer rhoncus mollis enim, sed accumsan eros maximus nec. Maecenas malesuada augue eget orci posuere, sit amet accumsan sapien ornare. Donec sed aliquam eros, et iaculis odio. Sed quis tempor mauris. Duis pretium lectus eu magna sollicitudin facilisis.'
-//               ]
-
-// const itensSelecionados = ref([]) // esse array vai conter os itens marcados
-
 </script>
 
 <style scoped>
