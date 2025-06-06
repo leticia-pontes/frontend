@@ -30,11 +30,11 @@
       <q-header class="header" v-if="$route.meta.customHeader">
         <q-toolbar class="toolbar">
           <q-tabs shrink class="tabs-container-secondary">
-            <q-route-tab to="/" label="Home" class="no-uppercase" />
-            <q-route-tab to="/desenvolvedor-profile" label="Meu Perfil" class="no-uppercase" />
+            <q-route-tab :to="perfilRoute" label="Home" class="no-uppercase" />
+            <q-route-tab to="/meu-perfil" label="Meu Perfil" class="no-uppercase" />
             <q-route-tab to="/pedidos-solicitacoes" label="Pedidos" class="no-uppercase" />
-            <q-route-tab to="/chat" label="Conversas" class="no-uppercase" />
-            <q-route-tab to="/complete-perfil" label="Configurações" class="no-uppercase" />
+            <!-- <q-route-tab to="/chat" label="Conversas" class="no-uppercase" />
+            <q-route-tab to="/complete-perfil" label="Configurações" class="no-uppercase" /> -->
           </q-tabs>
 
           <q-space />
@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Login from 'src/components/Login.vue';
 
@@ -66,6 +66,27 @@ const tab = ref('');
 const login = ref(null);
 
 const isCustomHeader = computed(() => route.meta.customHeader === true);
+
+// Mapeamento id_tipo_perfil para nome
+const tipoPerfilMap = {
+  '1': 'Contratante',
+  '2': 'Desenvolvedor',
+};
+
+const tipoEmpresa = ref(null);
+
+onMounted(() => {
+  const tipoPerfilId = localStorage.getItem('user_tipo_perfil');
+  if (tipoPerfilId && tipoPerfilMap[tipoPerfilId]) {
+    tipoEmpresa.value = tipoPerfilMap[tipoPerfilId];
+  }
+});
+
+const perfilRoute = computed(() => {
+  if (tipoEmpresa.value === 'Contratante') return '/empresa-profile';
+  if (tipoEmpresa.value === 'Desenvolvedor') return '/desenvolvedor-profile';
+  return '/meu-perfil';
+});
 
 function scrollToSection(nomeSecao) {
   if (route.path !== '/home') {
@@ -86,10 +107,15 @@ function scrollToElement(id) {
   }
 }
 
-// function fazerLogout() {
-//   // Adicione a lógica real de logout aqui
-//   console.log("Usuário deslogado");
-// }
+function fazerLogout() {
+  // Limpar dados locais e redirecionar para login
+  localStorage.removeItem('auth_token');
+  localStorage.removeItem('user_tipo_perfil');
+  localStorage.removeItem('id_empresa');
+  localStorage.removeItem('id_perfil');
+
+  router.push('/login');
+}
 
 function openLogin() {
   login.value?.openModal();

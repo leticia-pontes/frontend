@@ -20,7 +20,11 @@
     </div>
   </div>
 
-  <div id="como-funciona" class="row q-pa-lg q-gutter-md">
+  <div
+    id="como-funciona"
+    class="row q-pa-lg q-gutter-md justify-center"
+    style="max-width: 95%; margin: 0 auto;"
+  >
     <div class="col ">
       <div class="text-h6">Como funciona?</div>
       Nossa plataforma conecta empresas que têm demandas específicas com desenvolvedoras de soluções tecnológicas. As contratantes criam pedidos detalhando seus projetos e necessidades. Já as empresas desenvolvedoras podem visualizar esses pedidos, escolher os que desejam atender e submeter propostas para execução.

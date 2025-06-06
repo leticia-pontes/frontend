@@ -84,6 +84,11 @@ const onSubmit = async () => {
       return
     }
 
+    localStorage.removeItem('auth_token')
+    localStorage.removeItem('user_tipo_perfil')
+    localStorage.removeItem('id_empresa')
+    localStorage.removeItem('id_perfil')
+
     localStorage.setItem('auth_token', tokenRecebido)
 
     Notify.create({
@@ -93,7 +98,7 @@ const onSubmit = async () => {
       timeout: 2000
     })
 
-    router.push({ name: 'empresa-profile' })
+    router.push({ name: 'profile' })
   } catch (error) {
     console.error('Erro ao fazer login:', error)
     Notify.create({
