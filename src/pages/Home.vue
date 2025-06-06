@@ -20,33 +20,21 @@
     </div>
   </div>
 
-  <div class="row q-pa-lg q-gutter-md">
+  <div id="como-funciona" class="row q-pa-lg q-gutter-md">
     <div class="col ">
       <div class="text-h6">Como funciona?</div>
-      Lorem ipsum dolor sit amet. Sit sint sapiente sed odio harum aut numquam modi aut blanditiis internos ut
-      voluptates quas.
-      Aut neque cumque ea aliquid labore est veritatis saepe non pariatur iusto et velit sint et odit autem.
-      A corporis adipisci et nobis ducimus eum similique blanditiis nam Quis dolorem et consequatur temporibus. Et
-      ducimus quia ut numquam dolore quo
-      galisum accusantium qui nesciunt voluptas qui reiciendis rerum sit blanditiis ipsam ad inventore dolorum.
-      Ut totam sint id ipsa autem nam accusantium dolorem aut iusto omnis est illum ducimus qui consequatur accusamus
-      non voluptas tempore.
+      Nossa plataforma conecta empresas que têm demandas específicas com desenvolvedoras de soluções tecnológicas. As contratantes criam pedidos detalhando seus projetos e necessidades. Já as empresas desenvolvedoras podem visualizar esses pedidos, escolher os que desejam atender e submeter propostas para execução.
     </div>
 
     <div class="col"><br>
-      <div>Lorem ipsum dolor sit amet. Sit sint sapiente sed odio harum aut numquam modi aut blanditiis internos ut
-        voluptates quas.
-        Aut neque cumque ea aliquid labore est veritatis saepe non pariatur iusto et velit sint et odit autem.
-        A corporis adipisci et nobis ducimus eum similique blanditiis nam Quis dolorem et consequatur temporibus. Et
-        ducimus quia ut numquam dolore quo
-        galisum accusantium qui nesciunt voluptas qui reiciendis rerum sit blanditiis ipsam ad inventore dolorum.
-        Ut totam sint id ipsa autem nam accusantium dolorem aut iusto omnis est illum ducimus qui consequatur accusamus
-        non voluptas tempore.</div>
+      <div>
+        Durante o processo, as desenvolvedoras acompanham o andamento dos projetos, entregam as soluções e recebem avaliações ao final. Para tornar a experiência mais motivadora, incluímos um sistema de gamificação, onde as desenvolvedoras acumulam pontos, sobem de nível e conquistam distintivos conforme a qualidade e a quantidade de trabalhos entregues.
+      </div>
     </div>
   </div>
 
 
-  <div class="bg-light-green-8 q-mt-xl" style="height:450px;">
+  <div id="nossos-exemplos" class="bg-light-green-8 q-mt-xl" style="height:450px;">
     <div class="text-white flex flex-center q-pa-sm text-h6">Exemplos de trabalhos</div>
     <div v-if="carregando" class="text-white flex flex-center q-pa-sm text-h5">Carregando projetos...</div>
     <div v-else-if="erro" class="text-white flex flex-center q-pa-sm text-h5">{{ erro }}</div>
@@ -55,75 +43,57 @@
 
 
     <div v-else class="row justify-center q-pa-xl q-gutter-xl">
-      <q-card v-for="projeto in projetosConcluidos" :key="projeto.id" class="col-3 bg-white"
+      <q-card v-for="projeto in projetos" :key="projeto.id_pedido" class="col-3 bg-white"
         style="height: 300px; max-width: 250px; width: 100%;">
 
         <div class="q-pa-sm">
-          <div class="text-subtitle1">{{ projeto.nome_projeto }}</div>
+          <div class="text-subtitle1">{{ projeto.titulo }}</div>
           <div class="text-caption text-grey-7 q-mt-xs">
-            {{ projeto.descricao }}
+            {{ truncarTexto(projeto.descricao, 200) }}
           </div>
 
           <div class="text-caption text-grey-6 q-mt-xs">
-            Empresa: {{ projeto.empresa.nome }}
+            Empresa: {{ projeto.contratante?.nome || 'N/A' }}
           </div>
 
-
-          <div class="q-mt-xs">
-            <q-chip color="green" text-color="white" dense small>
-              {{ projeto.status }}
-            </q-chip>
-          </div>
           <div class="text-caption text-blue-9 q-mt-sm">
-            Início: {{ formatarData(projeto.data_inicio) }}
+            Pedido: {{ formatarData(projeto.data_pedido) }}
           </div>
           <div class="text-caption text-blue-9">
-            Fim: {{ formatarData(projeto.data_fim) }}
+            Prazo: {{ formatarData(projeto.data_prazo) }}
           </div>
-          
         </div>
       </q-card>
     </div>
-
   </div>
-
 
 </template>
 
 <script>
 import axios from 'axios';
-import { computed } from 'vue';
-
 
 export default {
   data() {
     return {
-      tab: 'funciona',
-      projetos: [], 
+      projetos: [],
       carregando: false,
       erro: null,
-    }
-  },
-
-  computed: {
-    projetosConcluidos() {
-      return this.projetos.filter(projeto => projeto.status === 'Concluído');
-    }
+    };
   },
 
   mounted() {
-    this.buscarProjetos();
+    this.buscarProjetosRecentes();
   },
 
   methods: {
-    async buscarProjetos() {
+    async buscarProjetosRecentes() {
       this.carregando = true;
       this.erro = null;
       try {
-        const response = await axios.get('http://localhost:8000/api/projetos');
-        this.projetos = response.data.sort((a, b) => new Date(b.data_inicio) - new Date(a.data_inicio));
+        const response = await axios.get('http://localhost:8000/api/pedidos-recentes');
+        this.projetos = response.data;
       } catch (err) {
-        this.erro = 'Erro ao buscar projetos';
+        this.erro = 'Erro ao buscar projetos recentes';
         console.error(err);
       } finally {
         this.carregando = false;
@@ -133,7 +103,13 @@ export default {
     formatarData(data) {
       if (!data) return '—';
       return new Date(data).toLocaleDateString('pt-BR');
-    }
+    },
+
+    truncarTexto(texto, limite = 100) {
+      if (!texto) return '';
+      if (texto.length <= limite) return texto;
+      return texto.slice(0, limite) + '...';
+    },
   }
 }
 </script>
