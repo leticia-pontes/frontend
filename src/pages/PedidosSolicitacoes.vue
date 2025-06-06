@@ -4,8 +4,8 @@
       <q-tab name="home" label="Home" no-caps @click="$router.push('/')"/>
       <q-tab name="perfil" label="Meu Perfil" no-caps @click="$router.push('/desenvolvedor-profile')"/>
       <q-tab name="pedidos" label="Pedidos" no-caps @click="$router.push('/pedidos-solicitacoes')"/>
-      <q-tab name="conversas" label="Conversas" no-caps/>
-      <q-tab name="configuracoes" label="Configurações" no-caps  @click="$router.push('/complete-perfil')"/>
+      <!-- <q-tab name="conversas" label="Conversas" no-caps/>
+      <q-tab name="configuracoes" label="Configurações" no-caps  @click="$router.push('/complete-perfil')"/> -->
     </q-tabs>
 
     <q-banner class="bg-light-green-10 text-white">

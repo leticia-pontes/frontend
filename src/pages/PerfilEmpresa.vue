@@ -1,44 +1,12 @@
 <template>
   <div>
-    <div class="flex flex-center text-h4 q-pa-xl">Seja Bem-Vindo, Empresa X</div>
+    <div class="flex flex-center text-h4 q-pa-xl">
+      Seja Bem-Vindo, {{ dadosEmpresa.nome || 'Empresa' }}
+    </div>
 
-    <div class="row q-gutter-md">
-      <div class="col-3 q-ml-xl">
-        <q-card class="bg-light-green-8 q-pa-lg">
-          <q-card-section>
-            <q-input rounded-border dense outlined bg-color="white" label="Buscar">
-              <template v-slot:append>
-                <q-icon name="search"/>
-              </template>
-            </q-input>
-          </q-card-section>
-
-          <q-card-section>
-            <q-scroll-area
-              v-if="!isTecnologiasLoading"
-              style="height: 400px"
-            >
-              <q-option-group
-                :options="tecnologias.map(row => ({
-                  label: row.nome_tecnologia,
-                  value: row.id_tecnologia
-                }))"
-                v-model="tecnologiasSelecionadas"
-                color="white"
-                class="text-white"
-                type="checkbox"
-                keep-color
-              />
-            </q-scroll-area>
-
-            <div v-else class="flex flex-center">
-              <q-spinner color="white" size="2rem"/>
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
-
-      <div class="col q-mr-md">
+    <div class="row q-gutter-md justify-center">
+      <!-- Seção do formulário agora ocupa largura menor -->
+      <div class="col-6">
         <q-card class="bg-light-green-8">
           <q-card-section>
             <div class="text-h6 text-white">Crie sua proposta</div>
@@ -46,66 +14,33 @@
 
           <q-form @submit.prevent="criarProjeto">
             <q-card-section>
-              <div class="row">
-                <div class="col">
-                  <q-input
-                    v-model="dadosProjeto.titulo"
-                    dense
-                    outlined
-                    bg-color="white"
-                    label="Nome do projeto"
-                    :rules="[ val => !!val || 'Informe o nome do projeto' ]"
-                  />
+              <q-input
+                v-model="dadosProjeto.titulo"
+                dense
+                outlined
+                bg-color="white"
+                label="Nome do projeto"
+                :rules="[ val => !!val || 'Informe o nome do projeto' ]"
+              />
 
-                  <q-input
-                    v-model="dadosProjeto.descricao"
-                    bg-color="white"
-                    outlined
-                    type="textarea"
-                    label="Descrição"
-                    :rules="[ val => !!val || 'Informe a descrição do projeto' ]"
-                  />
-                </div>
+              <q-input
+                v-model="dadosProjeto.descricao"
+                bg-color="white"
+                outlined
+                type="textarea"
+                label="Descrição"
+                class="q-mt-md"
+                :rules="[ val => !!val || 'Informe a descrição do projeto' ]"
+              />
 
-                <div class="col-4 q-ml-md q-gutter-x-md">
-                  <q-input
-                    v-model="dadosProjeto.valor_estimado"
-                    dense
-                    outlined
-                    bg-color="white"
-                    label="Valor da proposta"
-                  />
-
-                  <q-separator spaced color="white"/>
-
-                  <div class="text-white">Tecnologias</div>
-
-                  <q-field
-                    v-model="dadosProjeto.tecnologias"
-                    borderless
-                    no-error-icon
-                    :rules="[ val => val.length > 0 || 'Obrigatório selecionar pelo menos 1 tecnologia' ]"
-                  >
-                    <template v-slot:control>
-                      <q-scroll-area class="full-width" style="height: 300px; max-height: 300px; overflow: auto">
-                        <q-option-group
-                          :options="tecnologias.map(row => ({
-                            label: row.nome_tecnologia,
-                            value: row.id_tecnologia
-                          }))"
-                          v-model="dadosProjeto.tecnologias"
-                          color="white"
-                          class="text-white"
-                          option-label="nome_tecnologia"
-                          option-value="id_tecnologia"
-                          type="checkbox"
-                          keep-color
-                        />
-                      </q-scroll-area>
-                    </template>
-                  </q-field>
-                </div>
-              </div>
+              <q-input
+                v-model="dadosProjeto.valor_estimado"
+                dense
+                outlined
+                bg-color="white"
+                label="Valor da proposta"
+                class="q-mt-md"
+              />
             </q-card-section>
 
             <q-card-actions align="right">
@@ -171,55 +106,69 @@
 <script>
 export default {
   data () {
-      return {
-          tab: 'home',
+    return {
+      dadosEmpresa: {
+        nome: '',
+        cnpj: '',
+        email: '',
+        telefone: '',
+        endereco: '',
+        perfil: null
+      },
 
-          group: 'op1',
-
-          options: [
-              {
-              teste: 'Option 1',
-              teste2: 'op1'
-              },
-          ],
-
-          tecnologias: [],
-          tecnologiasSelecionadas: [],
-          isTecnologiasLoading: true,
-
-          dadosProjeto: {
-              titulo: null,
-              descricao: null,
-              valor_estimado: null,
-              tecnologias: [],
-          },
-      }
+      dadosProjeto: {
+        titulo: null,
+        descricao: null,
+        valor_estimado: null,
+      },
+    }
   },
 
   methods: {
-      getTecnologias() {
-          this.$api.get("/tecnologias").then(res => {
-              this.tecnologias = res.data;
-          }).finally(() => this.isTecnologiasLoading = false);
-      },
+    getEmpresaLogada() {
+      const token = localStorage.getItem("auth_token")
+      if (!token) return
 
-      criarProjeto() {
-          this.$q.loading.show();
+      this.$api.get("/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        this.dadosEmpresa = res.data
+      }).catch(() => {
+        this.$q.notify({
+          type: "negative",
+          message: "Erro ao carregar dados da empresa"
+        })
+      })
+    },
 
-          this.$api.post("/pedidos", this.dadosProjeto).then(() => {
-              this.$q.notify({
-                  type: "positive",
-                  message: "Pedido criado com sucesso",
-              });
+    criarProjeto() {
+      this.$q.loading.show()
 
-              this.dadosProjeto = {};
-          })
-          .finally(() => this.$q.loading.hide());
-      },
+      const payload = {
+        ...this.dadosProjeto,
+        id_empresa_contratante: this.dadosEmpresa.id_empresa
+      }
+
+      this.$api.post("/pedidos", payload).then(() => {
+        this.$q.notify({
+          type: "positive",
+          message: "Pedido criado com sucesso"
+        })
+        this.dadosProjeto = {
+          titulo: null,
+          descricao: null,
+          valor_estimado: null
+        }
+      }).finally(() => {
+        this.$q.loading.hide()
+      })
+    }
   },
 
   mounted() {
-      this.getTecnologias();
-  },
+    this.getEmpresaLogada()
+  }
 }
 </script>
