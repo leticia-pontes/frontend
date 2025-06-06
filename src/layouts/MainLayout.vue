@@ -1,6 +1,7 @@
 <template>
   <div class="q-pa-sm q-gutter-y-sm">
     <q-layout>
+
       <!-- HEADER PADRÃO -->
       <q-header class="header" v-if="!isCustomHeader">
         <q-toolbar>
@@ -26,14 +27,14 @@
       </q-header>
 
       <!-- HEADER ESPECIAL -->
-      <q-header class="header" v-else>
+      <q-header class="header" v-if="$route.meta.customHeader">
         <q-toolbar class="toolbar">
           <q-tabs shrink class="tabs-container-secondary">
-            <q-route-tab to="/home" label="Home" class="no-uppercase" />
-            <q-route-tab to="/profile" label="Meu Perfil" class="no-uppercase" />
-            <q-route-tab to="/request" label="Pedidos" class="no-uppercase" />
+            <q-route-tab to="/" label="Home" class="no-uppercase" />
+            <q-route-tab to="/desenvolvedor-profile" label="Meu Perfil" class="no-uppercase" />
+            <q-route-tab to="/pedidos-solicitacoes" label="Pedidos" class="no-uppercase" />
             <q-route-tab to="/chat" label="Conversas" class="no-uppercase" />
-            <q-route-tab to="/settings" label="Configurações" class="no-uppercase" />
+            <q-route-tab to="/complete-perfil" label="Configurações" class="no-uppercase" />
           </q-tabs>
 
           <q-space />

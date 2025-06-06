@@ -54,37 +54,31 @@ const routes = [
       {
         path: 'empresa-profile',
         name: 'empresa-profile',
-        component: () => import('pages/PerfilEmpresa.vue')
+        component: () => import('pages/PerfilEmpresa.vue'),
+        meta: {
+          customHeader: true
+        }
       },
       {
         path: 'desenvolvedor-profile',
         name: 'desenvolvedor-profile',
-        component: () => import('pages/PerfilDesenvolvedor.vue')
+        component: () => import('pages/PerfilDesenvolvedor.vue'),
+        meta: {
+          customHeader: true
+        },
       },
       {
         path: 'pedidos-solicitacoes',
         name: 'pedidos-solicitacoes',
-        component: () => import('pages/PedidosSolicitacoes.vue')
+        component: () => import('pages/PedidosSolicitacoes.vue'),
+        meta: {
+          customHeader: true
+        }
       },
       {
         path: "planos",
         name: "planos",
         component: () => import("pages/Planos.vue"),
-      },
-      {
-        path: 'empresa-profile',
-        name: 'empresa-profile',
-        component: () => import('pages/PerfilEmpresa.vue')
-      },
-      {
-        path: 'desenvolvedor-profile',
-        name: 'desenvolvedor-profile',
-        component: () => import('pages/PerfilDesenvolvedor.vue')
-      },
-      {
-        path: 'pedidos-solicitacoes',
-        name: 'pedidos-solicitacoes',
-        component: () => import('pages/PedidosSolicitacoes.vue')
       },
     ],
   },
