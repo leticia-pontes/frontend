@@ -1,12 +1,5 @@
 <template>
   <div>
-    <q-tabs v-model="tab">
-      <q-tab name="home" label="Home" no-caps @click="$router.push('/')"/>
-      <q-tab name="perfil" label="Meu Perfil" no-caps @click="$router.push('/desenvolvedor-profile')"/>
-      <q-tab name="pedidos" label="Pedidos" no-caps @click="$router.push('/pedidos-solicitacoes')"/>
-      <q-tab name="conversas" label="Conversas" no-caps/>
-      <q-tab name="configuracoes" label="Configurações" no-caps  @click="$router.push('/complete-perfil')"/>
-    </q-tabs>
     <div class="flex flex-center text-h4 q-pa-xl">Seja Bem Vindo, Desenvolvedor X</div>
 
     <div class="row q- gutter-md">
